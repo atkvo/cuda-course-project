@@ -14,7 +14,6 @@ V_WIDTH=64
 
 ##### Positive image set creation 
 POS_CROPPED_FOLDER=xing_images
-POS_CROPPED_TYPE=png
 POS_CREATE_PER_CROP=100
 POS_INFO=positives.txt
 # Where to put the positive images generated
@@ -38,7 +37,7 @@ gen_neg_info:
 	# sed -i -e "s/^/$(NEG_FOLDER)\//" $(NEG_INFO)
 
 gen_pos:
-	for f in ./$(POS_CROPPED_FOLDER)/*.$(POS_CROPPED_TYPE); do \
+	for f in ./$(POS_CROPPED_FOLDER)/*.png; do \
 		opencv_createsamples -img $$f -num $(POS_CREATE_PER_CROP) -bg $(NEG_INFO) -info tempfile -maxxangle 0.6 -maxyangle 0.2 -maxzangle 0.00 -maxidev 30 -bgcolor 0 -bgthresh 0 -w $(V_WIDTH) -h $(V_HEIGHT) -pngoutput; \
 		cat tempfile >> $(POS_INFO); \
 	done
